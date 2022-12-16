@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
@@ -21,5 +20,10 @@ app.get('/', (req, res) => {
 });
 
 app.use(v1, categoriesRouter)
+
+const notFound = require('./apps/api/middleware/not-found')
+const errorHandler = require('./apps/api/middleware/handler-error')
+app.use(notFound)
+app.use(errorHandler)
 
 module.exports = app;
