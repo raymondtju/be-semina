@@ -1,22 +1,11 @@
-const Categories = require("./model");
+const {getAllCategories, createCategory, getOneCategory, updateCategory, deleteCategory} = require('../../../services/mongoose/categories');
 
-const create = async (req, res, next) => {
-  try {
-    const { name } = req.body;
-
-    const result = await Categories.create({ name });
-    res.status(200).json({
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+const {StatusCodes} = require('http-status-codes');
 
 const findAll = async (req, res, next) => {
   try {
-    const result = await Categories.find();
-    res.status(201).json({
+    const result = await getAllCategories()
+    res.status(StatusCodes.OK).json({
       data: result,
     });
   } catch (err) {
@@ -24,17 +13,24 @@ const findAll = async (req, res, next) => {
   }
 }
 
+const create = async (req, res, next) => {
+  try {
+    const result = await createCategory(req)
+
+    res.status(StatusCodes.CREATED).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
 const findOne = async (req, res, next) => {
   try {
-    const result = await Categories.findOne({_id: req.params.id});
+    const result = await getOneCategory(req)
     
-    if (!result) {
-      return res.status(404).json({
-        message: "Category not found",
-      });
-    }
-    
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       data: result,
     });
   } catch (err) {
@@ -44,9 +40,9 @@ const findOne = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const result = await Categories.findOneAndUpdate({_id: req.params.id}, req.body, {new: true});
+    const result = await updateCategory(req)
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       data: result,
     })
   } catch (err) {
@@ -56,9 +52,9 @@ const update = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const result = await Categories.findOneAndDelete({_id: req.params.id});
+    const result = await deleteCategory(req)
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       data: result,
     })
   } catch (err) {
