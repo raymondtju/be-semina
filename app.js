@@ -5,6 +5,7 @@ const logger = require('morgan');
 const app = express();
 
 const categoriesRouter = require('./apps/api/v1/categories/router')
+const imagesRouter = require('./apps/api/v1/images/router')
 const v1 = '/api/v1/cms'
 
 app.use(logger('dev'));
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(v1, categoriesRouter)
+app.use(v1, imagesRouter)
 
 const notFound = require('./apps/api/middleware/not-found')
 const errorHandler = require('./apps/api/middleware/handler-error')
