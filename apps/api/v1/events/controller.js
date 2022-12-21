@@ -1,16 +1,16 @@
 const {
-  getAllCategories,
-  createCategories,
-  getOneCategories,
-  updateCategories,
-  deleteCategories,
-} = require("../../../services/mongoose/categories");
+  getAllEvents,
+  createEvents,
+  getOneEvents,
+  updateEvents,
+  deleteEvents,
+} = require("../../../services/mongoose/events");
 
 const { StatusCodes } = require("http-status-codes");
 
-const findAll = async (req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
-    const result = await getAllCategories();
+    const result = await getAllEvents(req);
     res.status(StatusCodes.OK).json({
       data: result,
     });
@@ -21,56 +21,56 @@ const findAll = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const result = await createCategories(req);
-
+    const result = await createEvents(req);
     res.status(StatusCodes.CREATED).json({
       data: result,
     });
   } catch (err) {
+    // console.log(err);
     next(err);
   }
 };
 
-const findOne = async (req, res, next) => {
+const getOne = async (req, res, next) => {
   try {
-    const result = await getOneCategories(req);
-
-    res.status(StatusCodes.OK).json({
+    const result = await getOneEvents(req);
+    res.status(StatusCodes.CREATED).json({
       data: result,
     });
   } catch (err) {
+    // console.log(err);
     next(err);
   }
 };
 
 const update = async (req, res, next) => {
   try {
-    const result = await updateCategories(req);
-
-    res.status(StatusCodes.OK).json({
+    const result = await updateEvents(req);
+    res.status(StatusCodes.CREATED).json({
       data: result,
     });
   } catch (err) {
+    // console.log(err);
     next(err);
   }
 };
 
 const remove = async (req, res, next) => {
   try {
-    const result = await deleteCategories(req);
-
-    res.status(StatusCodes.OK).json({
+    const result = await deleteEvents(req);
+    res.status(StatusCodes.CREATED).json({
       data: result,
     });
   } catch (err) {
+    // console.log(err);
     next(err);
   }
 };
 
 module.exports = {
-  findAll,
-  findOne,
+  getAll,
   create,
+  getOne,
   update,
   remove,
 };

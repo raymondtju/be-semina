@@ -1,16 +1,27 @@
 const {
-  getAllCategories,
-  createCategories,
-  getOneCategories,
-  updateCategories,
-  deleteCategories,
-} = require("../../../services/mongoose/categories");
+  getAllTalents,
+  getOneTalents,
+  createTalents,
+  updateTalents,
+  deleteTalents,
+} = require("../../../services/mongoose/talents");
 
 const { StatusCodes } = require("http-status-codes");
 
-const findAll = async (req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
-    const result = await getAllCategories();
+    const result = await getAllTalents(req);
+    res.status(StatusCodes.OK).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getOne = async (req, res, next) => {
+  try {
+    const result = await getOneTalents(req);
     res.status(StatusCodes.OK).json({
       data: result,
     });
@@ -21,21 +32,8 @@ const findAll = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const result = await createCategories(req);
-
+    const result = await createTalents(req);
     res.status(StatusCodes.CREATED).json({
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
-const findOne = async (req, res, next) => {
-  try {
-    const result = await getOneCategories(req);
-
-    res.status(StatusCodes.OK).json({
       data: result,
     });
   } catch (err) {
@@ -45,8 +43,7 @@ const findOne = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const result = await updateCategories(req);
-
+    const result = await updateTalents(req);
     res.status(StatusCodes.OK).json({
       data: result,
     });
@@ -57,8 +54,7 @@ const update = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const result = await deleteCategories(req);
-
+    const result = await deleteTalents(req);
     res.status(StatusCodes.OK).json({
       data: result,
     });
@@ -68,8 +64,8 @@ const remove = async (req, res, next) => {
 };
 
 module.exports = {
-  findAll,
-  findOne,
+  getAll,
+  getOne,
   create,
   update,
   remove,
