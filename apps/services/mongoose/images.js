@@ -6,7 +6,7 @@ const getAllImages = async () => {
   return result;
 };
 
-const createImage = async (req) => {
+const createImages = async (req) => {
   console.log(req.file);
   const result = await Images.create({
     name: req.file
@@ -29,6 +29,6 @@ const checkImages = async (id) => {
 
 module.exports = {
   getAllImages,
-  createImage,
+  createImages,
   checkImages,
 };

@@ -1,5 +1,5 @@
 const {
-  createImage,
+  createImages,
   getAllImages,
 } = require("../../../services/mongoose/images");
 
@@ -20,7 +20,7 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
   console.log(req.file);
   try {
-    const result = await createImage(req);
+    const result = await createImages(req);
 
     res.status(StatusCodes.CREATED).json({
       data: result,
