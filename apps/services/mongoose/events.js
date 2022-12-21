@@ -1,7 +1,7 @@
 const Events = require("../../api/v1/events/model");
 
 const { checkImages } = require("./images");
-const { checkCategory } = require("./categories");
+const { checkCategories } = require("./categories");
 const { checkTalents } = require("./talents");
 
 const { BadRequestError, NotFoundError } = require("../../errors");
@@ -128,7 +128,7 @@ const updateEvents = async (req) => {
   const { id } = req.params;
 
   await checkImages(image);
-  await checkCategory(category);
+  await checkCategories(category);
   await checkTalents(talent);
 
   const check = await Events.findOne({
