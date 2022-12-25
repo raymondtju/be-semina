@@ -3,12 +3,14 @@ const router = express();
 
 const { getAll, getOne, create, update, remove } = require("./controller");
 
-router.get("/talents", getAll);
-router.get("/talents/:id", getOne);
+const { authUser, authRoles } = require("../../../middleware/auth");
 
-router.post("/talents", create);
+router.get("/talents", authUser, authRoles("organizer"), getAll);
+router.get("/talents/:id", authUser, authRoles("organizer"), getOne);
 
-router.put("/talents/:id", update);
-router.delete("/talents/:id", remove);
+router.post("/talents", authUser, authRoles("organizer"), create);
+
+router.put("/talents/:id", authUser, authRoles("organizer"), update);
+router.delete("/talents/:id", authUser, authRoles("organizer"), remove);
 
 module.exports = router;
