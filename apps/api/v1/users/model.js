@@ -22,7 +22,7 @@ let UserSchema = Schema(
     role: {
       type: String,
       enum: ["organizer", "admin", "owner"],
-      default: "admin",
+      default: "organizer",
     },
     organizer: {
       type: mongoose.Types.ObjectId,
