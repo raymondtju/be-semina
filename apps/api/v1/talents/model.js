@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { model, Schema } = mongoose;
 
-let talentSchema = Schema(
+let TalentSchema = Schema(
   {
     name: {
       type: String,
@@ -20,4 +20,4 @@ let talentSchema = Schema(
   { timestamps: true }
 );
 
-module.exports = model("Talent", talentSchema);
+module.exports = model("Talent", TalentSchema);

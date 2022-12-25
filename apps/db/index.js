@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-const {urlDb} = require('../config')
+const mongoose = require("mongoose");
+const { urlDb } = require("../config");
 
-mongoose.set('strictQuery', true)
-mongoose.connect(urlDb)
+mongoose.set("strictQuery", true);
+mongoose.connect(urlDb);
 
-const db = mongoose.connection
+const db = mongoose.connection;
 
-module.exports = db
+module.exports = db;

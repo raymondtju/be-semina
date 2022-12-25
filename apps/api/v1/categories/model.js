@@ -9,8 +9,13 @@ let categorySchema = Schema(
       maxLength: [20, "Maximum of category name is 20 character"],
       required: [true, "You mush fill in the category"],
     },
+    organizer: {
+      type: Schema.Types.ObjectId,
+      ref: "Organizer",
+      required: [true, "You mush fill in the organizer"],
+    },
   },
-  { timestamps: true } ,//for viewing createdAt and updatedAt
+  { timestamps: true } //for viewing createdAt and updatedAt
 );
 
 module.exports = model("Category", categorySchema);

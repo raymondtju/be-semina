@@ -1,14 +1,16 @@
-const express = require('express')
-const router = express()
-const { create, findAll, findOne, update, remove } = require("./controller")
+const express = require("express");
+const router = express();
 
-router.get('/categories', findAll)
-router.get('/categories/:id', findOne)
+const { create, findAll, findOne, update, remove } = require("./controller");
+const { authUser, authRoles } = require("../../../middleware/auth");
 
-router.post('/categories', create)
+router.get("/categories", authUser, authRoles("organizer"), findAll);
+router.get("/categories/:id", authUser, authRoles("organizer"), findOne);
 
-router.put('/categories/:id', update)
+router.post("/categories", authUser, authRoles("organizer"), create);
 
-router.delete('/categories/:id', remove)
+router.put("/categories/:id", authUser, authRoles("organizer"), update);
 
-module.exports = router
+router.delete("/categories/:id", authUser, authRoles("organizer"), remove);
+
+module.exports = router;
