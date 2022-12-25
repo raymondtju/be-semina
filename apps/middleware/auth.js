@@ -1,4 +1,3 @@
-const { decode } = require("jsonwebtoken");
 const { UnauthorizedError, UnauthenticatedError } = require("../errors");
 const { verifyJWT } = require("../utils/jwt");
 
