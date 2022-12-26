@@ -3,13 +3,15 @@ const router = express();
 
 const { create, getAll, getOne, update, remove } = require("./controller");
 
-router.get("/events", getAll);
-router.get("/events/:id", getOne);
+const { authUser, authRoles } = require("../../../middleware/auth");
 
-router.post("/events", create);
+router.get("/events", authUser, authRoles("organizer"), getAll);
+router.get("/events/:id", authUser, authRoles("organizer"), getOne);
 
-router.put("/events/:id", update);
+router.post("/events", authUser, authRoles("organizer"), create);
 
-router.delete("/events/:id", remove);
+router.put("/events/:id", authUser, authRoles("organizer"), update);
+
+router.delete("/events/:id", authUser, authRoles("organizer"), remove);
 
 module.exports = router;
