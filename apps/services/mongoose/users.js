@@ -22,6 +22,25 @@ const createOrganizers = async (req) => {
   return users;
 };
 
+const createAdmins = async (req) => {
+  const { email, password, confirmPassword, name } = req.body;
+
+  if (password !== confirmPassword) {
+    throw new BadRequestError("Password doesn't match");
+  }
+
+  const users = await Users.create({
+    name,
+    email,
+    password,
+    organizer: req.user.organizer,
+  });
+
+  delete users._doc.password;
+  return users;
+};
+
 module.exports = {
   createOrganizers,
+  createAdmins,
 };
