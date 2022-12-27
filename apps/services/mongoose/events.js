@@ -189,10 +189,27 @@ const deleteEvents = async (req) => {
   return result;
 };
 
+const statusEvents = async (req) => {
+  const { statusEvent } = req.body;
+  const { id } = req.params;
+
+  const result = await Events.findOneAndUpdate(
+    { _id: id, organizer: req.user.organizer },
+    {
+      statusEvent: statusEvent,
+    },
+    { new: true, runValidators: true }
+  );
+
+  console.log(statusEvent);
+  return result;
+};
+
 module.exports = {
   getAllEvents,
   createEvents,
   getOneEvents,
   updateEvents,
   deleteEvents,
+  statusEvents,
 };
