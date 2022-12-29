@@ -42,7 +42,36 @@ const authRoles = (...roles) => {
   };
 };
 
+const authParticipant = async (req, res, next) => {
+  try {
+    let token;
+
+    let authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer")) {
+      token = authHeader.split(" ")[1];
+    }
+
+    if (!token) {
+      throw new UnauthenticatedError("Invalid token");
+    }
+
+    const decoded = verifyJWT(token);
+    console.log({ decoded: decoded });
+    req.participant = {
+      email: decoded.email,
+      id: decoded.id,
+      first: decoded.firstName,
+      last: decoded.lastName,
+    };
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   authUser,
   authRoles,
+  authParticipant,
 };
