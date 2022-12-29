@@ -11,7 +11,9 @@ const eventsRouter = require("./apps/api/v1/events/router");
 const organizersRouter = require("./apps/api/v1/organizers/router");
 const authCMSRouter = require("./apps/api/v1/auth/router");
 const ordersRouter = require("./apps/api/v1/orders/router");
-const v1 = "/api/v1/cms";
+const participantsRouter = require("./apps/api/v1/participants/router");
+const paymentsRouter = require("./apps/api/v1/payments/router");
+const v1 = "/api/v1";
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -25,13 +27,15 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use(v1, categoriesRouter);
-app.use(v1, imagesRouter);
-app.use(v1, talentsRouter);
-app.use(v1, eventsRouter);
-app.use(v1, organizersRouter);
-app.use(v1, authCMSRouter);
-app.use(v1, ordersRouter);
+app.use(`${v1}/cms`, categoriesRouter);
+app.use(`${v1}/cms`, imagesRouter);
+app.use(`${v1}/cms`, talentsRouter);
+app.use(`${v1}/cms`, eventsRouter);
+app.use(`${v1}/cms`, organizersRouter);
+app.use(`${v1}/cms`, authCMSRouter);
+app.use(`${v1}/cms`, ordersRouter);
+app.use(`${v1}`, participantsRouter);
+app.use(`${v1}`, paymentsRouter);
 
 const notFound = require("./apps/middleware/not-found");
 const errorHandler = require("./apps/middleware/handler-error");
