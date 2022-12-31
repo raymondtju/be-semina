@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
@@ -15,6 +16,7 @@ const participantsRouter = require("./apps/api/v1/participants/router");
 const paymentsRouter = require("./apps/api/v1/payments/router");
 const v1 = "/api/v1";
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
