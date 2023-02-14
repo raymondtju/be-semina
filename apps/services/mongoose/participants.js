@@ -72,7 +72,7 @@ const loginUsers = async (req) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new BadRequestError("Invalid email or password");
+    throw new BadRequestError("Email and password are required");
   }
 
   const result = await Participants.findOne({ email });
