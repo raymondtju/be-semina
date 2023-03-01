@@ -38,9 +38,8 @@ const createPayments = async (req) => {
 const getOnePayments = async (req) => {
   const { id } = req.params;
 
-  const result = await Payments.findOne({
-    _id: id,
-    organizer: req.user.organizer,
+  const result = await Payments.find({
+    organizer: id,
   })
     .populate({
       path: "image",
