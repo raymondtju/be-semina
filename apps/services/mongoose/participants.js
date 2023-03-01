@@ -111,7 +111,11 @@ const getOneEvents = async (req, res, next) => {
     .populate("category")
     .populate({
       path: "talent",
-      select: "image",
+      select: "_id name role image",
+      populate: {
+        path: "image",
+        select: "_id name",
+      },
     })
     .populate("image");
 
